@@ -8,6 +8,18 @@ from difflib import get_close_matches
 
 st.set_page_config(layout="wide")
 
+st.markdown("""
+    <style>
+    .reportview-container {
+        margin-top: -2em;
+    }
+    #MainMenu {visibility: hidden;}
+    .stDeployButton {display:none;}
+    footer {visibility: hidden;}
+    #stDecoration {display:none;}
+    </style>
+""", unsafe_allow_html=True)
+
 def get_image_info(ds, rt_struct):
     zoom = [float(ds.SliceThickness), float(ds.PixelSpacing[0]), float(ds.PixelSpacing[1])]
     depth = calculate_z_depth(rt_struct)
@@ -103,7 +115,7 @@ def main():
     st.title("RT Structure DICOM Comparison Tool")
 
     st.sidebar.header("Upload Files")
-    image_file = st.sidebar.file_uploader("Upload One of Image DICOMs", type=["dcm"])
+    image_file = st.sidebar.file_uploader("Upload One of Image DICOM", type=["dcm"])
     manual_rtstruct_file = st.sidebar.file_uploader("Upload Manual RT Structure DICOM", type=["dcm"])
     infer_rtstruct_file = st.sidebar.file_uploader("Upload Inference RT Structure DICOM", type=["dcm"])
 
