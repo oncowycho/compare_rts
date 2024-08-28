@@ -42,7 +42,6 @@ def create_mask_for_contour(contour_data, img_shape, spacing):
     return mask
 
 def get_contour(ds, img_shape, spacing):
-    st.write(ds)
     contours = {}
     
     for roi_contour_sequence in ds.ROIContourSequence:
