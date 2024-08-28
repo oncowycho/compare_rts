@@ -3,4 +3,4 @@ segmentationmetrics
 pandas
 pydicom
 numpy
-opencv-python
+opencv-python-headless
