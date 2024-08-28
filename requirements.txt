@@ -1,3 +1,4 @@
+streamlit
 segmentationmetrics
 pandas
 pydicom
