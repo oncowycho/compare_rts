@@ -1,6 +1,5 @@
-streamlit
 segmentationmetrics
 pandas
 pydicom
 numpy
-cv2
+opencv-python
