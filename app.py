@@ -16,7 +16,7 @@ def get_image_info(img_file, rt_struct_file):
     return zoom, img_shape
 
 def calculate_z_depth(rt_struct_file):
-    ds = pydicom.read_file(rt_struct_file, force=True))
+    ds = pydicom.read_file(rt_struct_file, force=True)
     z_coords = set()
 
     for roi_contour_sequence in ds.ROIContourSequence:
