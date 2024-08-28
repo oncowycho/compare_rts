@@ -1,6 +1,6 @@
 streamlit
 segmentationmetrics
 pandas
-pydicom
+pydicom=2.3.1
 numpy
 opencv-python-headless
