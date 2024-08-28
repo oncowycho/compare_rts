@@ -44,7 +44,8 @@ def create_mask_for_contour(contour_data, img_shape, spacing):
     return mask
 
 def get_contour(rt_struct, img_shape, spacing):
-    ds = pydicom.dcmread(rt_struct)
+    ds = pydicom.dcmread(rt_struct, force=True)
+    print(ds)
     contours = {}
     
     for roi_contour_sequence in ds.ROIContourSequence:
