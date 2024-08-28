@@ -44,7 +44,7 @@ def create_mask_for_contour(contour_data, img_shape, spacing):
     return mask
 
 def get_contour(rt_struct_file, img_shape, spacing):
-    ds = pydicom.read_file(rt_struct_file)
+    ds = pydicom.dcmread(rt_struct_file)
     contours = {}
     
     for roi_contour_sequence in ds.ROIContourSequence:
@@ -110,7 +110,7 @@ def main():
     manual_rtstruct_file = st.sidebar.file_uploader("Upload Manual RT Structure DICOM", type=["dcm"])
     infer_rtstruct_file = st.sidebar.file_uploader("Upload Inference RT Structure DICOM", type=["dcm"])
 
-    if manual_rtstruct_file and infer_rtstruct_file:
+    if image_file and manual_rtstruct_file and infer_rtstruct_file:
         # Calculate the number of slices (z-depth) based on unique z-coordinates
         zoom, img_shape = get_image_info(image_file, manual_rtstruct_file)
         st.write(f"Calculated image shape: {img_shape}")
