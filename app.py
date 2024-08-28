@@ -109,7 +109,7 @@ def main():
 
     if image_file and manual_rtstruct_file and infer_rtstruct_file:
         image = pydicom.dcmread(image_file)
-        manual_rtstructure = pydicom.dcmread(manual_rtstruct_file)
+        manual_rtstruct = pydicom.dcmread(manual_rtstruct_file)
         infer_rtstruct = pydicom.dcmread(infer_rtstruct_file)
         
         # Calculate the number of slices (z-depth) based on unique z-coordinates
