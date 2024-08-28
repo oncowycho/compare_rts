@@ -4,7 +4,6 @@ import pandas as pd
 import pydicom
 import numpy as np
 import cv2
-import plotly.graph_objects as go  # Import Plotly for visualization
 from difflib import get_close_matches
 
 st.set_page_config(layout="wide")
