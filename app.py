@@ -8,15 +8,13 @@ from difflib import get_close_matches
 
 st.set_page_config(layout="wide")
 
-def get_image_info(img_file, rt_struct_file):
-    ds = pydicom.read_file(img_file, force=True)
+def get_image_info(ds, rt_struct_file):
     zoom = [float(ds.SliceThickness), float(ds.PixelSpacing[0]), float(ds.PixelSpacing[1])]
     depth = calculate_z_depth(rt_struct_file)
     img_shape = (ds.Rows, ds.Columns, depth)
     return zoom, img_shape
 
-def calculate_z_depth(rt_struct_file):
-    ds = pydicom.read_file(rt_struct_file, force=True)
+def calculate_z_depth(ds):
     z_coords = set()
 
     for roi_contour_sequence in ds.ROIContourSequence:
@@ -43,8 +41,7 @@ def create_mask_for_contour(contour_data, img_shape, spacing):
 
     return mask
 
-def get_contour(rt_struct, img_shape, spacing):
-    ds = pydicom.dcmread(rt_struct, force=True)
+def get_contour(ds, img_shape, spacing):
     st.write(ds)
     contours = {}
     
@@ -111,16 +108,18 @@ def main():
     manual_rtstruct_file = st.sidebar.file_uploader("Upload Manual RT Structure DICOM", type=["dcm"])
     infer_rtstruct_file = st.sidebar.file_uploader("Upload Inference RT Structure DICOM", type=["dcm"])
 
-    ds = pydicom.dcmread(manual_rtstruct_file)
     st.write(ds)
     if image_file and manual_rtstruct_file and infer_rtstruct_file:
         # Calculate the number of slices (z-depth) based on unique z-coordinates
-        zoom, img_shape = get_image_info(image_file, manual_rtstruct_file)
+        image = pydicom.dcmread(image_file)
+        zoom, img_shape = get_image_info(image, manual_rtstruct_file)
         st.write(f"Calculated image shape: {img_shape}")
 
         # Load contours from the uploaded files
-        manuals = get_contour(manual_rtstruct_file, img_shape, zoom)
-        inferences = get_contour(infer_rtstruct_file, img_shape, zoom)
+        manual_rtstructure = pydicom.dcmread(manual_rtstruct_file)
+        infer_rtstruct = pydicom.dcmread(infer_rtstruct_file)
+        manuals = get_contour(manual_rtstruct, img_shape, zoom)
+        inferences = get_contour(infer_rtstruct, img_shape, zoom)
 
         # Compare the contours and display results
         result_df, matched_rois = compare_contours(manuals, inferences, zoom)
