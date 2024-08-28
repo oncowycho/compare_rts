@@ -111,6 +111,8 @@ def main():
     manual_rtstruct_file = st.sidebar.file_uploader("Upload Manual RT Structure DICOM", type=["dcm"])
     infer_rtstruct_file = st.sidebar.file_uploader("Upload Inference RT Structure DICOM", type=["dcm"])
 
+    ds = pydicom.dcmread(manual_rtstruct_file)
+    st.write(ds)
     if image_file and manual_rtstruct_file and infer_rtstruct_file:
         # Calculate the number of slices (z-depth) based on unique z-coordinates
         zoom, img_shape = get_image_info(image_file, manual_rtstruct_file)
