@@ -71,14 +71,19 @@ def get_contour(ds, img_shape, spacing):
 
 def match_contours(rois1, rois2):
     matches = {}
+    rois2l = [word.lower() for word in rois2]
+    r2d = {rois2l[i]:rois2[i] for i in range(len(rois2))}
+
     for roi in rois1:
-        match = get_close_matches(roi, rois2, n=1, cutoff=0.6)
-        print(roi,match)
+        roil = roi.lower()
+        match = get_close_matches(roil, rois2l, n=1, cutoff=0.6)
+
         if match:
-            matches[roi] = match[0]
+            matches[roi] = r2d[match[0]]
         else:
             matches[roi] = None
     return matches
+
 
 def compare_contours(manuals, inferences, zoom):
     rois1 = sorted(list(manuals.keys()))
