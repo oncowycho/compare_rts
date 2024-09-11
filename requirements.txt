@@ -1,4 +1,4 @@
-pydicom
+pydicom==2.4.0
 segmentationmetrics
 pandas
 numpy
