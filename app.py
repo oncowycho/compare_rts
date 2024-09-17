@@ -107,13 +107,14 @@ def compare_contours(manuals, inferences, zoom):
             metrics = sm.SegmentationMetrics(mask_inference, mask_manual, zoom, symmetric=False)
             df = metrics.get_df().rename(columns={'Score': roi1})[roi1]
             result = pd.concat([result, df], axis=1)
+            
         except KeyError as e:
             st.warning(f"Error processing ROI: {roi1}. Metric {e} not found.")
             continue
         except Exception as e:
             st.warning(f"Error processing ROI: {roi1}. Error: {str(e)}")
             continue
-
+       
     return result.T, matched_rois
 
 def main():
@@ -143,11 +144,15 @@ def main():
         if result_df.empty:
             st.warning("No matching contours found or the comparison could not be performed.")
         else:
+            df = result_df.astype(float, errors='ignore')
+            df = pd.concat([df, df.mean(axis=1).rename('Average')], axis=1)
+            df.loc['Total'] = df.mean()
+
             st.write("### Comparison Results")
-            st.dataframe(result_df)
+            st.dataframe(df)
 
             # Provide a download option for the results
-            csv = result_df.to_csv(index=True).encode('utf-8')
+            csv = df.to_csv(index=True).encode('utf-8')
             st.download_button("Download Results as CSV", data=csv, file_name='rt_struct_comparison.csv')
 
 if __name__ == "__main__":
