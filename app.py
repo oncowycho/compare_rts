@@ -145,12 +145,12 @@ def main():
             st.warning("No matching contours found or the comparison could not be performed.")
         else:
             df = result_df.astype(float, errors='ignore')
-            df = pd.concat([df, df.mean(axis=1).rename('Average')], axis=1)
-            df.loc['Total'] = df.mean()
+            # df = pd.concat([df, df.mean(axis=1).rename('Average')], axis=1)
+            # df.loc['Total'] = df.mean()
 
             st.write("### Comparison Results")
             st.dataframe(df)
-
+            st.write('DSC',df['dsc].mean())
             # Provide a download option for the results
             csv = df.to_csv(index=True).encode('utf-8')
             st.download_button("Download Results as CSV", data=csv, file_name='rt_struct_comparison.csv')
