@@ -150,7 +150,7 @@ def main():
 
             st.write("### Comparison Results")
             st.dataframe(df)
-            #st.write('DSC',df['dice].mean())
+            st.write('DSC',df['dice].mean())
             # Provide a download option for the results
             csv = df.to_csv(index=True).encode('utf-8')
             st.download_button("Download Results as CSV", data=csv, file_name='rt_struct_comparison.csv')
