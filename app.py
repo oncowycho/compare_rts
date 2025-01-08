@@ -8,16 +8,31 @@ from difflib import get_close_matches
 
 st.set_page_config(layout="wide")
 
-st.markdown("""
+st.markdown(f"""
     <style>
-    .reportview-container {
-        margin-top: -2em;
-    }
-    #MainMenu {visibility: hidden;}
-    .stDeployButton {display:none;}
-    footer {visibility: hidden;}
-    #stDecoration {display:none;}
+    /* Hide the configuration menu (three dots) */
+    [data-testid="stToolbar"] {{
+        visibility: hidden;
+        height: 0px;
+    }}
+    /* Add a footer */
+    .footer {{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #f1f1f1;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 14px;
+        color: #333;
+    }}
     </style>
+    <div class="footer">
+        © 2024 Wonyoung Cho. All rights reserved. |
+        Contact: <a href="mailto:wycho@oncosoft.io" style="text-decoration: none; color: DodgerBlue;">
+        wycho@oncosoft.io</a>
+    </div>
 """, unsafe_allow_html=True)
 
 def get_image_info(ds, rt_struct):
