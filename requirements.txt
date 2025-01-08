@@ -3,3 +3,4 @@ segmentationmetrics
 pandas
 numpy
 opencv-python-headless
+tqdm
