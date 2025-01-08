@@ -6,7 +6,9 @@ import numpy as np
 import cv2
 from difflib import get_close_matches
 
-st.set_page_config(layout="wide")
+st.set_page_config(layout="wide",page_title = "RT Structure DICOM Comparison Tool", page_icon="dgi_tab.ico",)
+
+st.logo('logo_light.png')
 
 st.markdown(f"""
     <style>
