@@ -346,14 +346,14 @@ def get_affine_matrix(dicom_ds):
 def main():
     st.title("RT Structure Comparison Tool")
 
-    st.sidebar.header("Upload Files")
+    st.sidebar.header("Upload DICOM Files")
     # Add current time display in sidebar
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     #st.sidebar.write(f"Current Time: {current_time}")
-
-    image_file = st.sidebar.file_uploader("Upload One of Image DICOM", type=["dcm"])
-    manual_rtstruct_file = st.sidebar.file_uploader("Upload Manual RT Structure DICOM", type=["dcm"])
-    infer_rtstruct_file = st.sidebar.file_uploader("Upload Inference RT Structure DICOM", type=["dcm"])
+    
+    image_file = st.sidebar.file_uploader("Upload One of Image file", type=["dcm"])
+    manual_rtstruct_file = st.sidebar.file_uploader("Upload Manual RT Structure file", type=["dcm"])
+    infer_rtstruct_file = st.sidebar.file_uploader("Upload Inference RT Structure file", type=["dcm"])
 
     process_button = st.sidebar.button("Process Files", 
                                         disabled=not (image_file and manual_rtstruct_file and infer_rtstruct_file))
