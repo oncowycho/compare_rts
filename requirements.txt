@@ -4,3 +4,4 @@ pandas
 numpy
 opencv-python-headless
 tqdm
+shapely==2.0.1
